@@ -22,13 +22,19 @@ else:
 
 # define x(t) as sine wave at the given freq
 xt = np.zeros(sample_rate) # initialize buffer
-t_step = 2* np.pi * freq / sample_rate # increment amount for sine
+t_step = 2 * np.pi * freq / sample_rate # increment amount for sine
 t = 0.0 # initial t
 
-# fill the buffer with samples of the sine wave
+# add the second harmonic at half the amplitude
+t2_step = 4 * np.pi * freq / sample_rate
+t2 = 0.0
+
+# fill the buffer with samples of the wave
 for i in range(xt.size):
-    xt[i] = np.sin(t)
+    # xt[i] = np.sin(t)
+    xt[i] = np.sin(t) + 0.5 * np.sin(t2)
     t += t_step
+    t2 += t2_step
 
 # Plot the first two cycles of the signal
 two_cycles_index = math.ceil(2 * (sample_rate / freq))
