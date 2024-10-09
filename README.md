@@ -12,7 +12,7 @@ Example: `python testing.py 44100 220`
 
 ### TODO
 
-* Implement vanilla DFT
-* Implement FFT
-* Write a program which adds many random frequency partials to signal
-* Benchmark algorithms at various sample rates (our n in this case)
+[ ] Implement vanilla DFT
+[ ] Implement FFT
+[x] Write a program which adds many random frequency partials to signal
+[ ] Benchmark algorithms at various sample rates (our n in this case)
