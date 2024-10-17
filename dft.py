@@ -1,5 +1,7 @@
 import math
 
+# Computes the magnitude of the DFT
+# That is, the sum of the absolute values of the real and imaginary parts
 def dft(input):
     n = len(input)
     output = [0.0] * n
