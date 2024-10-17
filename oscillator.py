@@ -45,6 +45,7 @@ class Oscillator:
             self.freqs[i] = freq
             inc = 2 * np.pi * freq / self.sample_rate
             self.incs[i] = inc
+        return self.freqs
             
             
     def nextSample(self):
