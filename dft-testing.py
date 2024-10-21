@@ -1,4 +1,5 @@
 from dft import dft
+from fft import fft
 
 import sys
 import math
@@ -45,13 +46,24 @@ plt.title("Sample index")
 plt.ylabel("Value of x(t)")
 plt.show()
 
-# Plot the absolute value (magnitude) of the fft
+# Plot the absolute value (magnitude) of the dft
 fxt = dft(xt)
 pos_freq_bound = math.ceil(len(fxt) / 2) + 1
 pos_fxt_mag = fxt[:pos_freq_bound]
 plt.plot(pos_fxt_mag)
 plt.xscale("log")
-plt.title("Absolute value of the FT of x(t)")
+plt.title("Absolute value of the DFT of x(t)")
+plt.ylabel("Magnitude")
+plt.xlabel("Frequency index")
+plt.show()
+
+# Plot the absolute value (magnitude) of the fft
+fxt = fft(xt)
+pos_freq_bound = math.ceil(len(fxt) / 2) + 1
+pos_fxt_mag = fxt[:pos_freq_bound]
+plt.plot(pos_fxt_mag)
+plt.xscale("log")
+plt.title("Absolute value of the FFT of x(t)")
 plt.ylabel("Magnitude")
 plt.xlabel("Frequency index")
 plt.show()
