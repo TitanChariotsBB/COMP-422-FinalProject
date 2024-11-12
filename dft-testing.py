@@ -28,9 +28,11 @@ xt = [0.0] * sample_rate # initialize buffer
 
 osc = Oscillator(sample_rate, num_oscs)
 
+# Random frequencies
 # freq_array = osc.randomize()
 # print(freq_array)
 
+# Random amplitudes of harmonic series
 freq_array = osc.overtones(220)
 print(freq_array)
 
