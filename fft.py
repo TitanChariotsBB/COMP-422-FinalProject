@@ -1,50 +1,46 @@
 import math
+import cmath
 
-def fft(input):
+def fft(input: list[float]):
+    input = pad_input(input)
+    complexResult :list[complex] = apply_fft(input)
+
+    RealResult = [abs(X.real) + abs(X.imag) for X in complexResult]
+    return RealResult
+
+
+def apply_fft(input:list[float]):
     N : int = len(input)
+    if not math.log2(N) == int(math.log2(N)):
+        raise ValueError("Cannot run the fft on a number of samples that is not a power of 2")
 
-    #we want to pad our matrix with zeroes because dividing our matrix will eventually require its length to be a power of 2
-    mat_len : int = pow(2, math.ceil( math.log2( N ) ))
+    if N == 1:
+        return input
 
-    padded_input = [0.0] * mat_len
-    for i in range(N):
-        padded_input[i] = input[i]
+    omega = cmath.exp(2*cmath.pi*cmath.sqrt(-1)/N)
 
-    operator_matrix = construct_matrix(N, mat_len)
+    evenElements = input[0:N:2]
+    oddElements = input[1:N:2]
 
-    output = apply_mat(operator_matrix, padded_input, N)
+    evenResults = apply_fft(evenElements)
+    oddResults = apply_fft(oddElements)
 
-    return output
+    output = [0 for i in range(0,N)]
 
-def construct_matrix(N:int, mat_len:int):
-    mat = []
-    
-    for n in range(mat_len):
-        mat.append([])
-        for k in range(mat_len):
-            if n < N and k < N:
-                angle = 2 * math.pi * n * k / N
-                mat[n].append(angle)
-            else: mat[n].append(0.0)
-
-    return mat
-
-def apply_mat(operator_matrix, input, N):
-    output = [0.0] * N
-
-    for k in range(N):
-        real_sum = 0.0
-        imag_sum = 0.0
-        for n in range(N):
-            real_sum += math.cos(operator_matrix[k][n]) * input[n]
-            imag_sum += math.sin(operator_matrix[k][n]) * input[n]
-        output[k] = abs(real_sum) + abs(imag_sum)
+    for k in range(0, int(N/2)):
+        output[k] = evenResults[k] + omega**k * oddResults[k]
+        output[k + int(N/2)] = evenResults[k] - omega**k * oddResults[k]
 
     return output
 
-#recursively divide the matrix until it's small enough that multiplication is almost linear
-#def divide_matri():
+def pad_input(input):
+    new_len = math.pow(2, math.ceil(math.log2(len(input))))
+
+    while( len(input) < new_len):
+        input.append(0)
+
+    return input
 
 if(__name__ == "__main__"):
-    matrix8 = construct_matrix(6)
-    print(matrix8)
+    test_input = [1, 2, 3]
+    fft(test_input)
