@@ -3,15 +3,19 @@ import time
 from oscillator import Oscillator
 from dft import dft
 
-NUM_TRIALS = 10
+NUM_TRIALS = 1
 
 # Benchmark DFT
-results = {}
+dft_results = {}
+fft_results = {}
 
-n = 10
-while n < 2000:
-    results[n] = []
-    res_sum = 0
+n = 256
+while n < 5097:
+    dft_results[n] = []
+    dft_res_sum = 0
+
+    fft_results[n] = []
+    fft_res_sum = 0
     
     # Generate a 1 second signal of sample rate n
     osc = Oscillator(sample_rate=n, num_oscs=20)
@@ -24,17 +28,27 @@ while n < 2000:
             xt[i] = osc.nextSample()
             
         # Time the DFT
-        start = time.time()
-        fxt = dft(xt)
-        end = time.time()
+        dft_start = time.time()
+        dft_fxt = dft(xt)
+        dft_end = time.time()
         
-        ms = (end - start) * 1000.0
+        dft_ms = (dft_end - dft_start) * 1000.0
+
+        # Time the FFT
+        fft_start = time.time()
+        fft_fxt = dft(xt)
+        fft_end = time.time()
+        
+        fft_ms = (fft_end - fft_start) * 1000.0
         
         # results[n].append(ms)
-        res_sum += ms
+        dft_res_sum += dft_ms
+        fft_res_sum += fft_ms
         
-    results[n] = f"Avg: {round(res_sum / NUM_TRIALS, 5)} ms"
+    dft_results[n] = f"Avg: {round(dft_res_sum / NUM_TRIALS, 4)} ms"
+    fft_results[n] = f"Avg: {round(fft_res_sum / NUM_TRIALS, 4)} ms"
     
-    n *= 10
+    n *= 2
     
-print(results)
+print(f"DFT: {dft_results}")
+print(f"FFT: {fft_results}")
