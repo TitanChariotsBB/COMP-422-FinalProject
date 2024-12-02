@@ -2,15 +2,18 @@ import time
 
 from oscillator import Oscillator
 from dft import dft
+from fft import fft
 
-NUM_TRIALS = 1
+NUM_TRIALS = 10
 
 # Benchmark DFT
 dft_results = {}
 fft_results = {}
 
 n = 256
-while n < 5097:
+while n < 5000:
+    print(f"Benchmarking n={n}")
+    
     dft_results[n] = []
     dft_res_sum = 0
 
@@ -36,7 +39,7 @@ while n < 5097:
 
         # Time the FFT
         fft_start = time.time()
-        fft_fxt = dft(xt)
+        fft_fxt = fft(xt)
         fft_end = time.time()
         
         fft_ms = (fft_end - fft_start) * 1000.0
