@@ -4,21 +4,20 @@
 
 `python -m pip install numpy matplotlib`
 
-### How to use `fourier-learning.py`
+### How to use `correctness.py`
 
-This script creates a 1 second sine wave (and the second harmonic) with a given sample rate (arg 1) and frequency (arg 2). It plots the first 2 cycles of the sample to show the waveform, then it plots the absolute value (magnitude) of the positive half of the DFT.
+This script demonstrates that the DFT and FFT correctly detect the component frequencies of a randomly generated 1 second signal.
 
-Example: `python fourier-learning.py 44100 220`
+Base usage: `python correctness.py`
 
-### How to use `dft-testing.py`
+With custom sample rate, oscilator count, and mode: `python correctness.py 1024 30 random`
 
-This script creates 1 second of audio wave at a given sample rate (arg 1) and number of oscilators frequency (arg 2). It plots a snapsnot of the waveform, then it plots the absolute value (magnitude) of the positive half of the DFT.
+### How to use `benchmarking.py`
 
-Example: `python fourier-learning.py 1500 10`
+For problem sizes of 256, 512, 1024, 2048, and 4096, this script measures the performance of the DFT and FFT 10 times each and averages the results.
 
-### TODO
+Usage: `python benchmarking.py`
 
-* [x] Implement vanilla DFT
-* [ ] Implement FFT
-* [x] Write a program which adds many random frequency partials to signal
-* [ ] Benchmark algorithms at various sample rates (our n in this case)
+### What is oscillator.py?
+
+This class creates a 1 second signal at a given sample rate. It creates the signal by summing sine waves at various frequencies and amplitudes. The random mode randomizes both frequencies and amplitudes, and the overtones mode creates a fundamental signal and adds its overtones at random amplitudes.
