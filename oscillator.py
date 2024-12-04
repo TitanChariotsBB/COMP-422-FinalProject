@@ -14,7 +14,9 @@ class Oscillator:
         self.freqs = [0.0] * num_oscs 
         self.incs = [0.0] * num_oscs
         self.ts = [0.0] * num_oscs
-        
+    
+    # generates a signal with a given number of given number of sines
+    # randomized frequency and amplitude
     def randomize(self):
         for i in range(self.num_oscs):
             # random amplitude [0, 1)
@@ -28,6 +30,8 @@ class Oscillator:
             self.incs[i] = inc
         return self.freqs
 
+    # generates a signal with a given number of given number of sines
+    # fundamental frequency and overtones at a randomized amplitude
     def overtones(self, fundamental_freq):
         # fundamental
         self.freqs[0] = fundamental_freq
@@ -48,6 +52,7 @@ class Oscillator:
         return self.freqs
             
             
+    # calculates the next sample of the oscillator
     def nextSample(self):
         sum = 0.0
         for i in range(self.num_oscs):

@@ -14,6 +14,7 @@ def apply_fft(input:list[float]):
     if not math.log2(N) == int(math.log2(N)):
         raise ValueError("Cannot run the fft on a number of samples that is not a power of 2")
 
+    # base case
     if N == 1:
         return input
 
@@ -22,6 +23,7 @@ def apply_fft(input:list[float]):
     evenElements = input[0:N:2]
     oddElements = input[1:N:2]
 
+    # recursive calls
     evenResults = apply_fft(evenElements)
     oddResults = apply_fft(oddElements)
 
